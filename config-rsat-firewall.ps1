@@ -1,68 +1,33 @@
 #########################################
+# No Server local                       #
+#########################################
+$ips_pc_manager='192.168.0.20,192.168.0.21' ## Lista de IP ou HOSTNAME para acesso remoto a este computador, nivel de segurança avançada
+Set-Item WSMan:\localhost\client\TrustedHosts "$ips_pc_manager" -Force
+
+#########################################
+# Após alterações, reiniciar o WinRM    #
+#########################################
+
+## Local ##
+Restart-Service WinRM
+
+## Remotamente ##
+# Get-Service -ComputerName LOCALHOST -Name WinRM | Restart-Service
+
+## Lista os computadores confiavéis para sessão remota ##
+Get-Item WSMan:\localhost\Client\TrustedHosts
+
+## Testando Conexão
+# $ip_remoto=192.168.0.20
+# Test-WsMan $ip_remoto
+
+#########################################
 ## HABILITA O WINRM PARA GERENCIAMENTO ##
 ## REMOTO PELO GERENCIADOR DE SERVIDOR ##
 #########################################
 
 winrm qc -Force
 Enable-PSRemoting -Force
-
-## https://blog.joaoheytor.com/2016/07/08/powershell-habilitando-conexao-remota/
-## https://www.jlgregorio.com.br/2021/06/13/conexao-remota-com-powershell-7-x/
-
-#####################
-## No Server local ##
-##################### 
-# $ips_pc_manager='192.168.0.20,192.168.0.21'
-# Set-Item WSMan:\localhost\client\TrustedHosts "$ips_pc_manager" -Force
-
-######################################
-# Após alterações, reiniciar o WinRM #
-######################################
-
-## Local ##
-# Restart-Service WinRM
-
-## Remotamente ##
-# Get-Service -ComputerName LOCALHOST -Name WinRM | Restart-Service
-
-## Lista os computadores confiavéis para sessão remota ##
-# Get-Item WSMan:\localhost\Client\TrustedHosts
-
-## Testando Conexão
-# $ip_remoto=192.168.0.20
-# Test-WsMan $ip_remoto
-
-#####################
-## No PC local ##
-##################### 
-# $ips_server_remoto='192.168.0.250,192.168.0.251'
-# Set-Item WSMan:\localhost\client\TrustedHosts "$ips_server_remoto" -Force
-
-######################################
-# Após alterações, reiniciar o WinRM #
-######################################
-
-## Local ##
-# Restart-Service WinRM
-
-## Remotamente ##
-# Get-Service -ComputerName LOCALHOST -Name WinRM | Restart-Service
-
-## Lista os computadores confiavéis para sessão remota ##
-# Get-Item WSMan:\localhost\Client\TrustedHosts
-
-## Testando Conexão
-# $ip_remoto=192.168.0.20
-# Test-WsMan $ip_remoto
-
-
-
-
-
-
-# Set-item WSMan:\localhost\client\TrustedHosts -value * -Force
-wmic process call create 'cmd.exe /c winrm set winrm/config/client @{TrustedHosts="*"}'
-
 
 #########################################
 ## RSAT- Habilita regras no Firewall   ##
@@ -103,3 +68,21 @@ Set-NetFirewallRule -DisplayGroup "Gerenciamento de Volumes Remoto" -Enabled Tru
 Set-NetFirewallRule -DisplayGroup "Gerenciamento Remoto do Windows Defender Firewall" -Enabled True
 Set-NetFirewallRule -DisplayGroup "Área de Trabalho Remota" -Enabled True
 }
+
+#########################################
+## Habilita resposta                   ##
+## ping (ICMPv4 e ICMPv6)              ##
+#########################################
+
+netsh advfirewall firewall add rule name="Allow ICMPv4" protocol=icmpv4:8,any dir=in action=allow
+netsh advfirewall firewall add rule name="Allow ICMPv6" protocol=icmpv6:8,any dir=in action=allow
+
+
+## Créditos ##
+## https://blog.joaoheytor.com/2016/07/08/powershell-habilitando-conexao-remota/
+## https://www.jlgregorio.com.br/2021/06/13/conexao-remota-com-powershell-7-x/
+
+## Habilitar para todos | Nivel de Segurança: Não Recomenadado
+# Set-item WSMan:\localhost\client\TrustedHosts -value * -Force
+# wmic process call create 'cmd.exe /c winrm set winrm/config/client @{TrustedHosts="*"}'
+
