@@ -67,10 +67,10 @@ Install-WindowsFeature -Name 'AD-Domain-Services' -Verbose
 $ADDSForest = @{
     CreateDnsDelegation  = $False
     DatabasePath         = 'C:\Windows\NTDS'
-    DomainMode           = 'Win2008'
+    DomainMode           = 'Win2012R2'
     DomainName           = "$domain"
     DomainNetbiosName    = "$domainnetbiosname"
-    ForestMode           = 'Win2016'
+    ForestMode           = 'Win2012R2'
     InstallDns           = $True
     LogPath              = 'C:\Windows\NTDS'
     NoRebootOnCompletion = $False
