@@ -42,7 +42,7 @@ Disable-NetAdapterBinding -InterfaceAlias "$InterfaceAlias" -ComponentID ms_tcpi
 #########################################
 $interface = Get-NetIPConfiguration | Where-Object {$_.IPv4DefaultGateway -ne $null} | findstr "InterfaceAlias"
 $InterfaceAlias = (($interface.Split(":"))[-1]).trim()
-Set-NetIPInterface -InterfaceInterfaceAlias "$InterfaceAlias" -Dhcp Disabled
+Set-NetIPInterface -InterfaceAlias "$InterfaceAlias" -Dhcp Disabled
 
 #########################################
 ## Define IP, Mascara, Gateway e DNS   ##
