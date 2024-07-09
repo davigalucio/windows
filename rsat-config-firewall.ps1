@@ -3,10 +3,19 @@
 ## REMOTO PELO GERENCIADOR DE SERVIDOR ##
 #########################################
 
-#set-item wsman:localhost\client\trustedhosts -value * -Force
+winrm qc -Force
+Enable-PSRemoting -Force
+
+## https://blog.joaoheytor.com/2016/07/08/powershell-habilitando-conexao-remota/
+# $ip_manager_01='192.168.0.20'
+# $ip_manager_02='192.168.0.21'
+# Set-Item WSMan:\localhost\client\TrustedHosts "$ip_manager_01,$ip_manager_02" -Force
+# Get-Service -ComputerName LOCALHOST -Name WinRM | Restart-Service
+
+
+# Set-item WSMan:\localhost\client\TrustedHosts -value * -Force
 wmic process call create 'cmd.exe /c winrm set winrm/config/client @{TrustedHosts="*"}'
 
-winrm qc -Force
 
 #########################################
 ## RSAT- Habilita regras no Firewall   ##
