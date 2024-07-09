@@ -48,7 +48,7 @@ Set-NetIPInterface -InterfaceAlias "$InterfaceAlias" -Dhcp Disabled
 ## Define IP, Mascara, Gateway e DNS   ##
 #########################################
 New-NetIPAddress -InterfaceAlias $InterfaceAlias -IPAddress $ip -PrefixLength $mask -DefaultGateway $gateway
-Set-DNSClientServerAddress -InterfaceAlias "$InterfaceAlias" –ServerAddresses ("$dns1","$dns2","$dns3")
+Set-DNSClientServerAddress -InterfaceAlias "$InterfaceAlias" -ServerAddresses ("$dns1","$dns2","$dns3")
 
 #########################################
 ## Lista as Configurações setadas      ##
