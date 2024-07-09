@@ -5,7 +5,7 @@ $mask = '24'
 $gateway = '192.168.0.1'
 $dns1 = '192.168.0.250'
 $dns2 = '8.8.8.8'
-$dns2 = '127.0.0.1'
+$dns3 = '127.0.0.1'
 $domain = 'skynet.domain'
 
 # Altera a senha do administrator
