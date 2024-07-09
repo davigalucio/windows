@@ -1,4 +1,14 @@
 #########################################
+## HABILITA O WINRM PARA GERENCIAMENTO ##
+## REMOTO PELO GERENCIADOR DE SERVIDOR ##
+#########################################
+
+#set-item wsman:localhost\client\trustedhosts -value * -Force
+wmic process call create 'cmd.exe /c winrm set winrm/config/client @{TrustedHosts="*"}'
+
+winrm qc -Force
+
+#########################################
 ## RSAT- Habilita regras no Firewall   ##
 #########################################
 
