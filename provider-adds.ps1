@@ -11,6 +11,9 @@ $domain = 'skynet.domain'
 # Altera a senha do administrator
 net user $ENV:username $pwdhost
 
+# Ajustar Fuso Horario
+tzutil /s “E. South America Standard Time”
+
 # Altera o hostname
 Rename-Computer -NewName "$hostname"
 
