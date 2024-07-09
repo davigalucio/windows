@@ -7,7 +7,7 @@ $dns1 = '192.168.0.250'
 $dns2 = '8.8.8.8'
 $dns3 = '127.0.0.1'
 $domain = 'skynet.domain'
-
+$domainnetbiosname=($domain.Split("."))[0].ToUpper()
 # Altera a senha do administrator
 net user $ENV:username $pwdhost
 
@@ -55,14 +55,22 @@ Set-DNSClientServerAddress -InterfaceAlias "$InterfaceAlias" -ServerAddresses ("
 #########################################
 Get-NetIPConfiguration
 
+#################################################################
+# Instala as Features para provisionamento do Active Directory  #
+#################################################################
+
 Install-WindowsFeature -Name 'AD-Domain-Services' -Verbose
+
+#################################################################
+# Provisionado o Controlador de Dominio                         #
+#################################################################
 $ADDSForest = @{
     CreateDnsDelegation  = $False
     DatabasePath         = 'C:\Windows\NTDS'
-    DomainMode           = 'Win2012R2'
+    DomainMode           = 'Win2008'
     DomainName           = "$domain"
-    DomainNetbiosName    = 'YOURDOMAIN'
-    ForestMode           = 'Win2012R2'
+    DomainNetbiosName    = "$domainnetbiosname"
+    ForestMode           = 'Win2016'
     InstallDns           = $True
     LogPath              = 'C:\Windows\NTDS'
     NoRebootOnCompletion = $False
