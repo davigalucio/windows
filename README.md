@@ -2,6 +2,6 @@ $URLDOWNLOADER='https://github.com/davigalucio/windows/archive/refs/heads/main.z
 
 $GITFILE='git-windows.zip'
 
-Invoke-WebRequest -Uri "$URLDOWNLOADER" -OutFile "$ENV:HOMEDRIVE\$GITFILE"
+Invoke-WebRequest -Uri $URLDOWNLOADER -OutFile $ENV:HOMEDRIVE\$GITFILE
 
-Expand-Archive -Path "C:\$GITFILE" -DestinationPath "$ENV:HOMEDRIVE\"
+Expand-Archive -Path C:\$GITFILE -DestinationPath $ENV:HOMEDRIVE\
