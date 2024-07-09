@@ -55,17 +55,37 @@ Set-DNSClientServerAddress -InterfaceAlias "$InterfaceAlias" -ServerAddresses ("
 #########################################
 Get-NetIPConfiguration
 
+Install-WindowsFeature -Name 'AD-Domain-Services' -Verbose
+$ADDSForest = @{
+    CreateDnsDelegation  = $False
+    DatabasePath         = 'C:\Windows\NTDS'
+    DomainMode           = 'Win2012R2'
+    DomainName           = "$domain"
+    DomainNetbiosName    = 'YOURDOMAIN'
+    ForestMode           = 'Win2012R2'
+    InstallDns           = $True
+    LogPath              = 'C:\Windows\NTDS'
+    NoRebootOnCompletion = $False
+    SysvolPath           = 'C:\Windows\SYSVOL'
+    Force                = $True
+    Verbose              = $True
+}
+Install-ADDSForest @ADDSForest -SafeModeAdministratorPassword (ConvertTo-SecureString "$pwdhost" -AsPlainText -Force)
+
+
+# Para adicionar um novo servidor a um dominio ja existente, executar os comandos abaixo:
+
 # Instala o Recurso de compatibilidade de aplicativo do Server Core sob demanda (FOD) usando o Windows Update.
-Add-WindowsCapability -Online -Name ServerCore.AppCompatibility~~~~0.0.1.0
+# Add-WindowsCapability -Online -Name ServerCore.AppCompatibility~~~~0.0.1.0
 
 # Instala as Features para provisionamento do Active Directory
-Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
+#Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
 
 # Testa o Controlador instalado
-Test-ADDSDomainControllerInstallation -InstallDns -DomainName "$domain"
+# Test-ADDSDomainControllerInstallation -InstallDns -DomainName "$domain"
 
 # Provisionando o Dominio
-Install-ADDSDomainController -CreateDnsDelegation:$false -CriticalReplicationOnly:$false -DatabasePath "C:\Windows\NTDS" -DomainName "$domain" -InstallDNS:$True -LogPath "C:\Windows\NTDS" -SiteName "Default-First-Site-Name" -SYSVOLPath "C:\Windows\SYSVOL" -Force:$true -SafeModeAdministratorPassword (ConvertTo-SecureString "$pwdhost" -AsPlainText -Force)
+# Install-ADDSDomainController -CreateDnsDelegation:$false -CriticalReplicationOnly:$false -DatabasePath "C:\Windows\NTDS" -DomainName "$domain" -InstallDNS:$True -LogPath "C:\Windows\NTDS" -SiteName "Default-First-Site-Name" -SYSVOLPath "C:\Windows\SYSVOL" -Force:$true -SafeModeAdministratorPassword (ConvertTo-SecureString "$pwdhost" -AsPlainText -Force)
 
 
 ## Testes 
@@ -73,16 +93,13 @@ Install-ADDSDomainController -CreateDnsDelegation:$false -CriticalReplicationOnl
 
 ## Get-ADDomainController
 
-## Get-ADDomain gabrielluiz.lan
+## Get-ADDomain $domain
 
-## Get-ADForest gabrielluiz.lan
+## Get-ADForest $domain
 
 ## Get-smbshare SYSVOL
 
 ## Get-ADDomainController -Discover
-
-## Add-WindowsCapability -Online -Name ServerCore.AppCompatibility~~~~0.0.1.0 # Instala o Recurso de compatibilidade de aplicativo do Server Core sob demanda (FOD) usando o Windows Update.
-
 
 ## https://www.youtube.com/watch?v=yjMuG9USkbY
 ## https://gabrielluiz.com/2022/11/deploy-adds-domain-controller/
