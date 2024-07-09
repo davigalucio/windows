@@ -20,9 +20,9 @@ $dns2 = '8.8.8.8'
 #########################################
 
 $domain = 'SKYNET.DOMAIN'
-$username = '$domain\administrator'
+$username = "$domain\administrator"
 $pwddom = 'Ads@1234.' | ConvertTo-SecureString -asPlainText -Force
-$credential = New-Object System.Management.Automation.PSCredential($username,$pwddom)
+$credential = New-Object System.Management.Automation.PSCredential($username,$pwddom);
 
 #########################################
 ## Renomeia um novo nome de HOSTNAME   ##
