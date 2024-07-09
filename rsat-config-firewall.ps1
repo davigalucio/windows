@@ -12,30 +12,53 @@ Enable-PSRemoting -Force
 #####################
 ## No Server local ##
 ##################### 
-# $ip_pc_remoto_01='192.168.0.20'
-# $ip_pc_remoto_02='192.168.0.21'
-# Set-Item WSMan:\localhost\client\TrustedHosts "$ip_manager_01,$ip_manager_02" -Force
+# $ips_pc_manager='192.168.0.20,192.168.0.21'
+# Set-Item WSMan:\localhost\client\TrustedHosts "$ips_pc_manager" -Force
+
+######################################
+# Após alterações, reiniciar o WinRM #
+######################################
+
+## Local ##
+# Restart-Service WinRM
+
+## Remotamente ##
 # Get-Service -ComputerName LOCALHOST -Name WinRM | Restart-Service
 
-# Lista os computadores confiavéis para sessão remota
+## Lista os computadores confiavéis para sessão remota ##
 # Get-Item WSMan:\localhost\Client\TrustedHosts
+
+## Testando Conexão
+# $ip_remoto=192.168.0.20
+# Test-WsMan $ip_remoto
 
 #####################
-## No PC Remoto    ##
+## No PC local ##
 ##################### 
-# $ip_server_remoto_01='192.168.0.250'
-# $ip_server_remoto_02='192.168.0.251'
-# Set-Item WSMan:\localhost\client\TrustedHosts "$ip_manager_01,$ip_manager_02" -Force
+# $ips_server_remoto='192.168.0.250,192.168.0.251'
+# Set-Item WSMan:\localhost\client\TrustedHosts "$ips_server_remoto" -Force
+
+######################################
+# Após alterações, reiniciar o WinRM #
+######################################
+
+## Local ##
+# Restart-Service WinRM
+
+## Remotamente ##
 # Get-Service -ComputerName LOCALHOST -Name WinRM | Restart-Service
 
-# Lista os computadores confiavéis para sessão remota
+## Lista os computadores confiavéis para sessão remota ##
 # Get-Item WSMan:\localhost\Client\TrustedHosts
 
+## Testando Conexão
+# $ip_remoto=192.168.0.20
+# Test-WsMan $ip_remoto
 
-# $ip_manager_01='192.168.0.20'
-# $ip_manager_02='192.168.0.21'
-# Set-Item WSMan:\localhost\client\TrustedHosts "$ip_manager_01,$ip_manager_02" -Force
-# Get-Service -ComputerName LOCALHOST -Name WinRM | Restart-Service
+
+
+
+
 
 # Set-item WSMan:\localhost\client\TrustedHosts -value * -Force
 wmic process call create 'cmd.exe /c winrm set winrm/config/client @{TrustedHosts="*"}'
