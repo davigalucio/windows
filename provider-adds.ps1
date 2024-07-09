@@ -109,6 +109,8 @@ Install-ADDSForest @ADDSForest -SafeModeAdministratorPassword (ConvertTo-SecureS
 
 ## Get-ADDomainController -Discover
 
+## Créditos:
+## https://www.youtube.com/watch?v=M5ij9c2ee2s
 ## https://www.youtube.com/watch?v=yjMuG9USkbY
 ## https://gabrielluiz.com/2022/11/deploy-adds-domain-controller/
 ## https://github.com/gabrielluizbh/Install-ADDSDomainController
