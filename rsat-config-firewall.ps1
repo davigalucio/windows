@@ -7,11 +7,35 @@ winrm qc -Force
 Enable-PSRemoting -Force
 
 ## https://blog.joaoheytor.com/2016/07/08/powershell-habilitando-conexao-remota/
+## https://www.jlgregorio.com.br/2021/06/13/conexao-remota-com-powershell-7-x/
+
+#####################
+## No Server local ##
+##################### 
+# $ip_pc_remoto_01='192.168.0.20'
+# $ip_pc_remoto_02='192.168.0.21'
+# Set-Item WSMan:\localhost\client\TrustedHosts "$ip_manager_01,$ip_manager_02" -Force
+# Get-Service -ComputerName LOCALHOST -Name WinRM | Restart-Service
+
+# Lista os computadores confiavéis para sessão remota
+# Get-Item WSMan:\localhost\Client\TrustedHosts
+
+#####################
+## No PC Remoto    ##
+##################### 
+# $ip_server_remoto_01='192.168.0.250'
+# $ip_server_remoto_02='192.168.0.251'
+# Set-Item WSMan:\localhost\client\TrustedHosts "$ip_manager_01,$ip_manager_02" -Force
+# Get-Service -ComputerName LOCALHOST -Name WinRM | Restart-Service
+
+# Lista os computadores confiavéis para sessão remota
+# Get-Item WSMan:\localhost\Client\TrustedHosts
+
+
 # $ip_manager_01='192.168.0.20'
 # $ip_manager_02='192.168.0.21'
 # Set-Item WSMan:\localhost\client\TrustedHosts "$ip_manager_01,$ip_manager_02" -Force
 # Get-Service -ComputerName LOCALHOST -Name WinRM | Restart-Service
-
 
 # Set-item WSMan:\localhost\client\TrustedHosts -value * -Force
 wmic process call create 'cmd.exe /c winrm set winrm/config/client @{TrustedHosts="*"}'
