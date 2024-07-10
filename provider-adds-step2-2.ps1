@@ -1,4 +1,5 @@
-$hostname = 'SRVADDS001M'
+## Atenção, não esqueça de rodar primeiramente o arquivo "provider-adds-step1-2.ps1"
+
 $pwdhost = 'Adds!1234@5.'
 $ip = '192.168.0.250'
 $mask = '24'
@@ -8,14 +9,6 @@ $dns2 = '8.8.8.8'
 $dns3 = '127.0.0.1'
 $domain = 'skynet.domain'
 $domainnetbiosname=($domain.Split("."))[0].ToUpper()
-# Altera a senha do administrator
-net user $ENV:username $pwdhost
-
-# Ajustar Fuso Horario
-tzutil /s “E. South America Standard Time”
-
-# Altera o hostname
-Rename-Computer -NewName "$hostname"
 
 #########################################
 ##           Desativa o IPV6           ##
