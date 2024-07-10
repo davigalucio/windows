@@ -19,7 +19,7 @@ $InterfaceAlias = (($interface.Split(":"))[-1]).trim()
 ################################################
 # Ajusta o Fuso Horario                        #
 ################################################
-tzutil /s "E. South America Standard Time"
+tzutil /s 'E. South America Standard Time'
 
 ################################################
 # Altera a senha atual                         #
