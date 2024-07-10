@@ -40,8 +40,6 @@ Set-DNSClientServerAddress -InterfaceAlias "$InterfaceAlias" -ServerAddresses ("
 ## Lista as Configurações setadas      ##
 #########################################
 echo
-Get-NetIPConfiguration
-echo
 Get-NetAdapterBinding -ComponentID ms_tcpip6
 echo
 Get-NetIPv6Protocol | fl RandomizeIdentifiers
