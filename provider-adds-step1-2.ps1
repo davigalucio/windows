@@ -59,6 +59,10 @@ Set-DNSClientServerAddress -InterfaceAlias "$InterfaceAlias" -ServerAddresses ("
 echo
 Get-NetIPConfiguration
 echo
+Get-NetAdapterBinding -ComponentID ms_tcpip6
+echo
+Get-NetIPv6Protocol | fl RandomizeIdentifiers
+echo
 sleep 10
 echo
 # Altera o hostname
