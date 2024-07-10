@@ -1,52 +1,10 @@
-## Atenção, não esqueça de rodar primeiramente o arquivo "provider-adds-step1-2.ps1"
+######################################################################################
+## Atenção, não esqueça de rodar primeiramente o arquivo "provider-adds-step1-2.ps1" #
+######################################################################################
 
 $pwdhost = 'Adds!1234@5.'
-$ip = '192.168.0.250'
-$mask = '24'
-$gateway = '192.168.0.1'
-$dns1 = '192.168.0.250'
-$dns2 = '8.8.8.8'
-$dns3 = '127.0.0.1'
 $domain = 'skynet.domain'
 $domainnetbiosname=($domain.Split("."))[0].ToUpper()
-
-#########################################
-##           Desativa o IPV6           ##
-#########################################
-
-## Lista o status dos adaptadores com IPV6
-Get-NetAdapterBinding -ComponentID ms_tcpip6
-
-## Verifica se esta ativo o protocolo IPV6
-Get-NetIPv6Protocol | fl RandomizeIdentifiers
-
-## Seleciona o primeiro adaptador de rede ativo
-$interface = Get-NetIPConfiguration | Where-Object {$_.IPv4DefaultGateway -ne $null} | findstr "InterfaceAlias"
-$InterfaceAlias = (($interface.Split(":"))[-1]).trim()
-
-## Desativa o protocolo IPV6
-Set-NetIPv6Protocol -RandomizeIdentifiers Disabled
-
-## Desativa o componente IPV6 da interface de rede ativa
-Disable-NetAdapterBinding -InterfaceAlias "$InterfaceAlias" -ComponentID ms_tcpip6
-
-#########################################
-##          Desativa o DHCP            ##
-#########################################
-$interface = Get-NetIPConfiguration | Where-Object {$_.IPv4DefaultGateway -ne $null} | findstr "InterfaceAlias"
-$InterfaceAlias = (($interface.Split(":"))[-1]).trim()
-Set-NetIPInterface -InterfaceAlias "$InterfaceAlias" -Dhcp Disabled
-
-#########################################
-## Define IP, Mascara, Gateway e DNS   ##
-#########################################
-New-NetIPAddress -InterfaceAlias $InterfaceAlias -IPAddress $ip -PrefixLength $mask -DefaultGateway $gateway
-Set-DNSClientServerAddress -InterfaceAlias "$InterfaceAlias" -ServerAddresses ("$dns1","$dns2","$dns3")
-
-#########################################
-## Lista as Configurações setadas      ##
-#########################################
-Get-NetIPConfiguration
 
 #################################################################
 # Instala as Features para provisionamento do Active Directory  #
