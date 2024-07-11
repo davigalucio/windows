@@ -20,6 +20,7 @@ $mask=(Get-NetIPAddress -InterfaceAlias "$InterfaceAlias" | findstr PrefixLength
 
 Add-DnsServerPrimaryZone -NetworkID "$ip1.$ip2.$ip3.0/$mask" -ReplicationScope "Forest"
 
+
 # Fonte:
 # https://eltonbordim.com.br/instalando-o-servico-do-active-directory-domain-services-adds/
 # https://learn.microsoft.com/pt-br/windows-server/networking/dns/manage-dns-zones?tabs=powershell
