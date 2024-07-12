@@ -13,23 +13,6 @@ $gateway = '192.168.0.1'
 $dns1 = '192.168.0.250'
 $dns2 = '8.8.8.8'
 
-#Rename-Computer -NewName "$hostname" -Restart
-
-#########################################
-## Credenciais do Dominio              ##
-#########################################
-
-$domain = 'SKYNET.DOMAIN'
-$username = "$domain\administrator"
-$pwddom = 'Ads@1234.' | ConvertTo-SecureString -asPlainText -Force
-$credential = New-Object System.Management.Automation.PSCredential($username,$pwddom);
-
-#########################################
-## Renomeia um novo nome de HOSTNAME   ##
-#########################################
-
-#Rename-Computer -NewName $hostname
-
 #########################################
 ## Troca a senha do administrador      ##
 #########################################
@@ -130,23 +113,13 @@ Set-NetFirewallRule -DisplayGroup "Área de Trabalho Remota" -Enabled True
 }
 
 #########################################
-## Instalação do Windows Admin Center  ##
-#########################################
-
-Invoke-WebRequest -Uri https://aka.ms/WACDownload -OutFile "$ENV:HOMEDRIVE\wac.msi"
-New-NetFirewallRule -DisplayName "Allow Windows Admin Center Outbound 443" -Direction Outbound -profile Domain -LocalPort 443 -Protocol TCP -Action Allow
-New-NetFirewallRule -DisplayName "Allow Windows Admin Center Inbound 443" -Direction Inbound -profile Domain -LocalPort 443 -Protocol TCP -Action Allow
-$msiArgs = @("/i", "C:\WAC.msi", "/qn", "/L*v", "log.txt", "SME_PORT=443", "SSL_CERTIFICATE_OPTION=generate")
-Start-Process msiexec.exe -Wait -ArgumentList $msiArgs
-
-#########################################
 ## Instalação dos Recursos do Servidor ##
 #########################################
 
 Install-WindowsFeature -Name FileAndStorage-Services, File-Services, FS-FileServer, Storage-Services, Hyper-V, Remote-Desktop-Services, EnhancedStorage, Windows-Server-Backup, BITS, BITS-Compact-Server, Failover-Clustering, BitLocker, Data-Center-Bridging, RSAT, RSAT-Role-Tools, RSAT-Hyper-V-Tools, Hyper-V-PowerShell, RSAT-Feature-Tools, RSAT-Clustering, RSAT-Clustering-PowerShell, RSAT-Clustering-CmdInterface, RSAT-Clustering-AutomationServer, RSAT-DataCenterBridging-LLDP-Tools, RSAT-Feature-Tools-BitLocker, WindowsStorageManagementService, FS-SMBBW, Server-Media-Foundation, Multipath-IO, DiskIo-QoS, NET-Framework-Features, NET-Framework-Core, NET-Framework-45-Features, NET-Framework-45-Core, NET-Framework-45-ASPNET, NET-WCF-Services45, NET-WCF-TCP-PortSharing45, SNMP-Service, SNMP-WMI-Provider, FS-SMB1, FS-SMB1-CLIENT, FS-SMB1-SERVER, Microsoft-Windows-Subsystem-Linux, WoW64-Support, Telnet-Client, Windows-Defender, PowerShellRoot, PowerShell, PowerShell-V2 -IncludeManagementTools
 
 #########################################
-## Integração ao Dominio               ##
+## Renomeia um novo nome de HOSTNAME   ##
 #########################################
 
-Add-Computer -DomainName $domain -Credential $credential -Restart
+Rename-Computer -NewName "$hostname" -Restart
