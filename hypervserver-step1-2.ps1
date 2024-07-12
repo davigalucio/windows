@@ -122,4 +122,4 @@ Install-WindowsFeature -Name FileAndStorage-Services, File-Services, FS-FileServ
 ## Renomeia um novo nome de HOSTNAME   ##
 #########################################
 
-Rename-Computer -NewName "$hostname" -Restart
+Rename-Computer -NewName $hostname -Restart
