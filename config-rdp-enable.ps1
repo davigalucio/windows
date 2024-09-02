@@ -8,4 +8,4 @@ Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' 
 ## Habilitando Regra no Firewall               ##
 #################################################
 
-Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+Enable-NetFirewallRule -Name "RemoteDesktop-UserMode*"
