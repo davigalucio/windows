@@ -9,3 +9,8 @@ Expand-Archive -Path "$GITFILE" -DestinationPath $ENV:HOMEDRIVE\
 dir  $ENV:HOMEDRIVE\
 
 
+$url_file='https://raw.githubusercontent.com/davigalucio/windows/main/AppxRemove.ps1'
+
+Invoke-Expression "& { $(Invoke-RestMethod $url_file) }"
+
+
