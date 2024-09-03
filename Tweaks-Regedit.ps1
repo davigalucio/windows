@@ -12,10 +12,6 @@ Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\PriorityControl' 
 
 Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop' -Type DWord -name "MenuShowDelay" -value 10
 
-New-Item -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\' -name "Explorer"
-New-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer' -Type DWord -name "NoLowDiskSpaceChecks" -value 0
-
-
 New-Item -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -name "PowerThrottling"
 New-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling' -Type DWord -name "PowerThrottlingOff" -value 1
 
