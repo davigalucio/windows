@@ -14,3 +14,15 @@ $url_file='https://raw.githubusercontent.com/davigalucio/windows/main/AppxRemove
 Invoke-Expression "& { $(Invoke-RestMethod $url_file) }"
 
 
+$config_list=@(
+'https://raw.githubusercontent.com/davigalucio/windows/main/config-rdp-enable.ps1'
+'https://raw.githubusercontent.com/davigalucio/windows/main/AppxRemove.ps1'
+'https://raw.githubusercontent.com/davigalucio/windows/main/Tweaks-Regedit.ps1'
+'https://raw.githubusercontent.com/davigalucio/windows/main/disable-services.ps1'
+)
+
+foreach ($config in $config_list)
+{
+ echo "----------------------------------------------------"
+ Invoke-Expression "& { $(Invoke-RestMethod $config) }"
+}
