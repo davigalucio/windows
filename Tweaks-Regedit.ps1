@@ -1,24 +1,15 @@
-Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile' -Type DWord -name "AlwaysOn" -value 1
-New-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile' -Type DWord -name "NoLazyMode" -value 1
-Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile' -Type DWord -name "NetworkThrottlingIndex" -value 0xffffffff
-Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile' -Type DWord -name "SystemResponsiveness" -value 0
+REG ADD 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile' /v "AlwaysOn" /t REG_DWORD /d 0x00000001 /f
+REG ADD 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile' /v "NoLazyMode" /t REG_DWORD /d 0x00000001 /f
+REG ADD 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile' /v "NetworkThrottlingIndex" /t REG_DWORD /d 0xffffffff /f
+REG ADD 'HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile' /v "SystemResponsiveness" /t REG_DWORD /d 0x00000000 /f
+REG ADD 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer' /v "AlwaysUnloadDll" /t REG_DWORD /d 0x00000001 /f
+REG ADD 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Serialize' /v "StartupDelayInMSec" /t REG_DWORD /d 0x00000000 /f
+REG ADD 'HKLM\SYSTEM\CurrentControlSet\Control' /v "WaitToKillAppTimeout" /t REG_DWORD /d 0x00000010 /f
+REG ADD 'HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl' /v "Win32PrioritySeparation" /t REG_DWORD /d 0x00000026 /f
+REG ADD 'HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling' /v "PowerThrottlingOff" /t REG_DWORD /d 0x00000001 /f
+REG ADD 'HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\54533251-82be-4824-96c1-47b60b740d00\0cc5b647-c1df-4637-891a-dec35c318583' /v "Attributes" /t REG_DWORD /d 0x00000000 /f
 
-New-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer' -Type DWord -name "AlwaysUnloadDll" -value 1
-New-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer' -name "Serialize"
-New-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Serialize' -Type DWord -name "StartupDelayInMSec" -value 0
-Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects' -Type DWord -name "VisualFXSetting" -value 2
-
-Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\PriorityControl' -Type DWord -name "Win32PrioritySeparation" -value 26
-
-Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop' -Type DWord -name "MenuShowDelay" -value 10
-
-New-Item -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Power' -name "PowerThrottling"
-New-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling' -Type DWord -name "PowerThrottlingOff" -value 1
-
-New-Item -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\54533251-82be-4824-96c1-47b60b740d00\0cc5b647-c1df-4637-891a-dec35c318583' -Type DWord -name "Attributes" -value 0
-
-New-Item -Path 'HKCU:\SYSTEM\CurrentControlSet\Control\' -name "FileSystem"
-New-ItemProperty -Path 'HKCU:\SYSTEM\CurrentControlSet\Control\FileSystem' -Type DWord -name "NtfsDisableLastAccessUpdate" -value 1
-
-New-ItemProperty -Path 'HKCU:\Control Panel\Desktop' -Type DWord -name "WaitToKillAppTimeout" -value 10
-Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control' -Type DWord -name "WaitToKillAppTimeout" -value 10
+REG ADD 'HKCU\Control Panel\Desktop' /v "WaitToKillAppTimeout" /t REG_DWORD /d 0x00000010 /f
+REG ADD 'HKCU\Control Panel\Desktop' /v "MenuShowDelay" /t REG_DWORD /d 0x00000010 /f
+REG ADD 'HKCU\SYSTEM\CurrentControlSet\Control\FileSystem' /v "NtfsDisableLastAccessUpdate" /t REG_DWORD /d 0x00000001 /f
+REG ADD 'HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects' /v 'VisualFXSetting' /t REG_DWORD /d 0x00000002 /f
