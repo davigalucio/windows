@@ -1,5 +1,7 @@
 #Assistente de Conexão de Conta da Microsoft
 Set-Service -name wlidsvc -startupType disabled
+#Serviço de Geolocalização
+Set-Service -name lfsvc -startupType disabled
 #Gerenciador de NFC/SE e Pagamentos
 Set-Service -name SEMgrSvc -startupType disabled
 #Descoberta SSDP
